@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绝对的美貌！✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=ZCOOL+KuaiLe&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* 保持一致的主题色 */
+        :root {
+            --color-green: #BBFF16;
+            --color-purple: #8A67F9;
+            --color-white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Nunito', 'ZCOOL KuaiLe', sans-serif;
+            background-color: var(--color-purple);
+            /* 整个页面的背景变成紫色 */
+            color: var(--color-white);
+            /* 因为背景是深色，所以文字用白色 */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            /* 垂直居中 */
+            justify-content: center;
+            min-height: 100vh;
+            /* 确保页面至少有整个屏幕那么高 */
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            /* 左右两边垂直对齐 */
+            justify-content: space-between;
+            gap: 50px;
+            padding: 40px 0;
+        }
+
+        /* === 左侧文字区块 === */
+        .text-content {
+            flex: 1;
+            /* 占据一半空间 */
+        }
+
+        .text-content h1 {
+            font-size: 3.5em;
+            color: var(--color-green);
+            /* 标题用亮绿色点缀，非常吸睛 */
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .text-content p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            /* 文字稍微柔和一点 */
+        }
+
+        /* 按钮：完全照搬之前的可爱按钮 */
+        .btn {
+            background-color: var(--color-green);
+            color: #333333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(187, 255, 22, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--color-white);
+            color: var(--color-purple);
+            transform: translateY(-5px);
+            /* 悬浮向上跳动 */
+        }
+
+        /* === 右侧照片区块 === */
+        .image-content {
+            flex: 1;
+            /* 占据另一半空间 */
+            text-align: center;
+        }
+
+        .image-content img {
+            width: 100%;
+            max-width: 450px;
+            /* 照片最大宽度 */
+            border-radius: 30px;
+            /* 大圆角 */
+            border: 8px solid var(--color-green);
+            /* 加上绿色粗边框，像拍立得 */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            cursor: zoom-in;
+            /* 鼠标放上去会变成放大镜图标 */
+            transition: transform 0.3s ease;
+        }
+
+        .image-content img:hover {
+            transform: scale(1.03) rotate(-2deg);
+            /* 悬浮时微微放大并歪一下头 */
+        }
+
+        /* === 点击看大图的黑底弹窗 (Modal) === */
+        #imgModal {
+            display: none;
+            /* 默认隐藏 */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            /* 半透明黑底 */
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            /* 鼠标放上去变成缩小图标 */
+        }
+
+        #imgModal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 20px;
+            border: 5px solid var(--color-white);
+            animation: zoomIn 0.3s ease;
+            /* 弹出的动画 */
+        }
+
+        /* 弹窗弹出的动画效果 */
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 关闭按钮 (右上角的 X) */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* === 响应式设计 (平板和手机端) === */
+        @media (max-width: 800px) {
+            .container {
+                /* 关键魔法：把左右排列变成上下排列，并且反转顺序！ */
+                flex-direction: column-reverse;
+                text-align: center;
+                /* 手机上文字居中更好看 */
+            }
+
+            .image-content img {
+                max-width: 80%;
+                /* 手机上图片稍微缩小一点 */
+                margin-bottom: 10px;
+            }
+
+            .text-content h1 {
+                font-size: 2.5em;
+                /* 手机上标题变小一点 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="text-content">
+            <h1>为什么是美貌？😎</h1>
+            <p>
+                既然你点进来了 说明你非常有眼光<br><br>
+                毕竟我正脸像Karina 左侧脸像刘亦
+                菲 右侧脸像Winter 下面看像张元英 上面看像吉赛尔
+                远看像鞠婧祎 近看像安俞真 后面看像章若楠 摆
+                动作看像姜惠元 生气时像宁宁 伤心时像裴秀智
+                
+            </p>
+            <button class="btn" onclick="window.location.href='index.html#photos'">返回主页</button>
+        </div>
+
+        <div class="image-content">
+            <img src="img/Me.jpeg" alt="我的大照片" onclick="openFullscreen()">
+        </div>
+
+    </div>
+
+    <div id="imgModal" onclick="closeFullscreen()">
+        <span class="close-btn">&times;</span>
+        <img src="img/Me.jpeg" id="fullscreenImg" alt="大图">
+    </div>
+
+    <script>
+        // 打开弹窗的函数
+        function openFullscreen() {
+            const modal = document.getElementById("imgModal");
+            modal.style.display = "flex"; // 把弹窗显示出来，并且用 flex 居中
+        }
+
+        // 关闭弹窗的函数
+        function closeFullscreen() {
+            const modal = document.getElementById("imgModal");
+            modal.style.display = "none"; // 隐藏弹窗
+        }
+    </script>
+
+</body>
+
+</html>

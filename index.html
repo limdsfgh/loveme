@@ -168,7 +168,7 @@
             background-color: var(--color-purple);
             color: var(--color-white);
             border-radius: 40px 40px 0 0;
-           /* margin-top: 40px;*/
+            /* margin-top: 40px;*/
         }
 
         .heart {
@@ -210,7 +210,7 @@
             /* 增加内边距，让内容不要太靠边 */
             border-radius: 0 0 30px 30px;
             /* 加上圆角，保持可爱的风格 */
-          /*  margin-bottom: 50px;*/
+            /*  margin-bottom: 50px;*/
             /* 底部留出一点空间 */
         }
 
@@ -248,6 +248,59 @@
 
 <body>
 
+    <div id="welcomeScreen"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--color-purple); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease;">
+        <h1 style="color: var(--color-green); font-size: 3em; text-align: center; margin-bottom: 30px;">✨ 暗恋我吗？</h1>
+        <button class="btn" onclick="enterSite()">🌟 是的！ 🌟</button>
+    </div>
+
+    <audio id="myAudio">
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="musicBtn" onclick="toggleMusic()"
+        style="position: fixed; bottom: 20px; right: 20px; font-size: 40px; cursor: pointer; z-index: 9999; display: none;">
+        🎵
+    </div>
+
+    <script>
+        var audio = document.getElementById("myAudio");
+        var btn = document.getElementById("musicBtn");
+        var welcome = document.getElementById("welcomeScreen");
+        var isPlaying = false;
+
+        // 当点击“点击开启魔法”时执行的函数
+        function enterSite() {
+            // 1. 让开门界面消失
+            welcome.style.opacity = "0";
+            setTimeout(() => { welcome.style.display = "none"; }, 500);
+
+            // 2. 显示右下角的音乐小图标
+            btn.style.display = "block";
+
+            // 3. 空降到第 15 秒并开始播放音乐！(这里的15你可以随便改)
+            audio.currentTime = 95;
+            audio.play();
+            isPlaying = true;
+        }
+
+        // 控制右下角音乐图标暂停/播放的函数
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                btn.innerText = "🔇";
+            } else {
+                audio.play();
+                btn.innerText = "🎵";
+            }
+            isPlaying = !isPlaying;
+
+            audio.addEventListener('ended', function () {
+                this.currentTime = 95; // 结束后跳回 95 秒
+                this.play();           // 继续播放
+            }, false);
+        }
+    </script>
     <header>
         <img src="img/me2.jpeg" alt="我的头像" class="profile-img" id="myAvatar">
         <h1>不要Stalk我！</h1>
@@ -260,22 +313,22 @@
         <section id="photos">
             <h2>为什么会喜欢我？</h2>
             <div class="grid-container">
-                <div class="card">
+                <div class="card" onclick="window.location.href='beauty.html'">
                     <img src="img/Me.jpeg" alt="照片1">
                     <h3>美貌？</h3>
                 </div>
-                <div class="card">
+                <div class="card" onclick="window.location.href='smart.html'">
                     <img src="img/sohai.jpeg" alt="照片2">
                     <h3>智慧？</h3>
                 </div>
-                <div class="card">
+                <div class="card" onclick="window.location.href='humor.html'">
                     <img src="img/sohai2.jpeg" alt="照片3">
                     <h3>幽默？</h3>
                 </div>
             </div>
         </section>
-  
-       <!--<section id="interests">
+
+        <!--<section id="interests">
             <h2>✨ 我的兴趣</h2>
             <div class="grid-container">
                 <div class="card">
@@ -343,6 +396,8 @@
             });
         });
     </script>
+
+
 </body>
 
 </html>

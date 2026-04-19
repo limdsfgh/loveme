@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你也为我啄米吧 🌟</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=ZCOOL+KuaiLe&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* 定义主题颜色变量 */
+        :root {
+            --color-green: #BBFF16;
+            --color-purple: #8A67F9;
+            --color-white: #FFFFFF;
+            --color-text: #333333;
+            --color-light-bg: #F9F9FB;
+            /* 非常浅的紫灰背景，用来区分区块 */
+        }
+
+        /* 基础重置与全局样式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', 'ZCOOL KuaiLe', sans-serif;
+            /* 使用圆润字体 */
+            background-color: var(--color-white);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 容器限制最大宽度并居中 */
+        .container {
+            /* max-width: 1000px;*/
+            margin: 0 auto;
+            /* padding: 40px 20px;*/
+        }
+
+        /* 头部自我介绍区块 */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--color-purple);
+            /* background: linear-gradient(135deg, var(--color-white) 0%, #f4efff 100%);*/
+            border-bottom: 5px dashed var(--color-white);
+            /* border-radius: 0 0 40px 40px;*/
+
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            /* 圆形头像 */
+            border: 6px solid var(--color-green);
+            /* 亮绿色边框 */
+            object-fit: cover;
+            box-shadow: 0 8px 16px rgba(138, 103, 249, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.1) rotate(5deg);
+            /* 可爱的悬浮旋转效果 */
+        }
+
+        h1 {
+            color: var(--color-white);
+            margin: 20px 0 10px;
+            font-size: 2.5em;
+        }
+
+        .bio {
+            font-size: 1.2em;
+            color: var(--color-white);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 标题统一样式 */
+        h2 {
+            text-align: center;
+            color: var(--color-purple);
+            margin-bottom: 30px;
+            font-size: 2em;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 90vw;
+            height: 8px;
+            background-color: var(--color-green);
+            border-radius: 10px;
+            margin: 5px auto 0;
+        }
+
+        /* 网格布局 (照片、兴趣、爱好) */
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background-color: var(--color-white);
+            border: 3px solid var(--color-purple);
+            border-radius: 25px;
+            /* 大圆角显得可爱 */
+            padding: 20px;
+            width: calc(33.333% - 20px);
+            /* 电脑端默认3列 */
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 卡片顶部装饰线 */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--color-green);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            /* 悬浮向上浮动 */
+            box-shadow: 0 15px 30px rgba(138, 103, 249, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+            /* 保持图片为正方形 */
+        }
+
+        .card h3 {
+            color: var(--color-purple);
+            margin-bottom: 10px;
+        }
+
+        /* 底部版权 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--color-purple);
+            color: var(--color-white);
+            border-radius: 40px 40px 0 0;
+           /* margin-top: 40px;*/
+        }
+
+        .heart {
+            color: var(--color-green);
+            animation: beat 1s infinite alternate;
+            display: inline-block;
+        }
+
+        @keyframes beat {
+            to {
+                transform: scale(1.3);
+            }
+        }
+
+        /* 互动按钮 */
+        .btn {
+            background-color: var(--color-green);
+            color: var(--color-text);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(187, 255, 22, 0.5);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--color-white);
+            color: var(--color-text);
+        }
+
+        #photos {
+            background-color: var(--color-green);
+            /* 这里调用了之前定义的 #BBFF16 */
+            padding: 5%;
+            /* 增加内边距，让内容不要太靠边 */
+            border-radius: 0 0 30px 30px;
+            /* 加上圆角，保持可爱的风格 */
+          /*  margin-bottom: 50px;*/
+            /* 底部留出一点空间 */
+        }
+
+
+        /* === 响应式设计 (Tablet & Mobile) === */
+
+        /* 平板尺寸 (最大宽度 900px) */
+        @media (max-width: 900px) {
+            .card {
+                width: calc(50% - 20px);
+                /* 平板端显示2列 */
+            }
+        }
+
+        /* 手机尺寸 (最大宽度 600px) */
+        @media (max-width: 600px) {
+            .card {
+                width: 90%;
+                /* 把 100% 改成 90%，左右就会自动空出空间了 */
+                margin: 0 auto;
+                /* 加上这行，确保卡片乖乖呆在正中间 */
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <img src="img/me2.jpeg" alt="我的头像" class="profile-img" id="myAvatar">
+        <h1>不要Stalk我！</h1>
+        <p class="bio">喜欢我不是人之常情吗 毕竟我又漂亮 又善良 又能搞笑 又能正经 又能甜美 又有爱心 又有上进心 试问谁能抵挡我的魅力？</p>
+        <button class="btn" onclick="sayHello()">点击向我告白</button>
+    </header>
+
+    <div class="container">
+
+        <section id="photos">
+            <h2>为什么会喜欢我？</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <img src="img/Me.jpeg" alt="照片1">
+                    <h3>美貌？</h3>
+                </div>
+                <div class="card">
+                    <img src="img/sohai.jpeg" alt="照片2">
+                    <h3>智慧？</h3>
+                </div>
+                <div class="card">
+                    <img src="img/sohai2.jpeg" alt="照片3">
+                    <h3>幽默？</h3>
+                </div>
+            </div>
+        </section>
+  
+       <!--<section id="interests">
+            <h2>✨ 我的兴趣</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <h3 style="font-size: 3em; margin: 20px 0;">🎨</h3>
+                    <h3>画画与设计</h3>
+                    <p>喜欢用色彩和线条表达脑海中奇奇怪怪的想法。</p>
+                </div>
+                <div class="card">
+                    <h3 style="font-size: 3em; margin: 20px 0;">🎮</h3>
+                    <h3>打游戏</h3>
+                    <p>周末最爱窝在沙发上玩 Switch 或是电脑游戏。</p>
+                </div>
+                <div class="card">
+                    <h3 style="font-size: 3em; margin: 20px 0;">🐱</h3>
+                    <h3>吸猫</h3>
+                    <p>对所有毛茸茸的小动物毫无抵抗力！</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="hobbies">
+            <h2>🎧 业余爱好</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <h3>🎵 听音乐</h3>
+                    <p>歌单里装满了各种风格的曲子，音乐是我的精神食粮。</p>
+                </div>
+                <div class="card">
+                    <h3>🍰 烘焙</h3>
+                    <p>尝试做各种可爱又好吃的小饼干和小蛋糕。</p>
+                </div>
+            </div>
+        </section> -->
+
+    </div>
+
+    <!--<footer>
+        <p>Made with <span class="heart">♥</span> by [你的名字] © 2026</p>
+    </footer>-->
+
+    <script>
+        // 按钮点击事件
+        function sayHello() {
+            alert("对不起你是个好人");
+        }
+
+        // 简单的入场动画效果（页面滚动时显示）
+        document.addEventListener("DOMContentLoaded", function () {
+            const cards = document.querySelectorAll('.card');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+
+</html>

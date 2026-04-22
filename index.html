@@ -94,6 +94,7 @@
             display: inline-block;
             left: 50%;
             transform: translateX(-50%);
+
         }
 
         h2::after {
@@ -590,17 +591,359 @@
             /* 🌟 重点：紫色背景上要用白字 */
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            100% {
-                transform: translateY(-15px) rotate(15deg);
-            }
-
-            /* 向上浮动并微微摇摆 */
+        /* === 🌟 美食滑动区块 === */
+        #favorite-food {
+            background-color: var(--color-white);
+            /* 整体背景白色 */
+            padding: 60px 20px;
         }
+
+        #favorite-food>h2 {
+            text-align: center;
+            color: var(--color-purple);
+            /* 标题紫色 */
+            font-size: 2.5em;
+            position: relative;
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        #favorite-food>h2::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 5px;
+            background-color: var(--color-green);
+            /* 白底配绿线 */
+            border-radius: 10px;
+            margin: 10px auto 0;
+        }
+
+        /* 🌟 重点 1：外层滑动容器的弧度 🌟 */
+        .slider-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--color-light-bg);
+            /* 用极浅的灰紫色垫底，突显弧度 */
+            border-radius: 40px;
+            /* 🌟 整个 Slide 的大弧度在这里！ */
+            padding: 20px 10px;
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.03);
+            /* 加一点内阴影，显得像凹进去的凹槽 */
+        }
+
+        /* 🌟 重点 2：内部的滑动轨道 🌟 */
+        .slider-track {
+            display: flex;
+            gap: 20px;
+            /* 卡片之间的间距 */
+            overflow-x: auto;
+            /* 允许横向滚动 */
+            scroll-snap-type: x mandatory;
+            /* 开启吸附魔法，滑动时自动停在卡片中间 */
+            padding: 20px;
+
+            /* 隐藏丑丑的滚动条，让它看起来更像 App */
+            scrollbar-width: none;
+            /* 针对 Firefox */
+        }
+
+        .slider-track::-webkit-scrollbar {
+            display: none;
+            /* 针对 Chrome 和 Safari */
+        }
+
+        /* 🌟 重点 3：每个美食的小卡片 🌟 */
+        .food-card {
+            flex: 0 0 220px;
+            /* 锁死每张卡片的宽度为 220px，不会被挤压 */
+            scroll-snap-align: center;
+            /* 滑动停下时，卡片自动居中对齐 */
+            background-color: var(--color-white);
+            border: 3px solid var(--color-purple);
+            border-radius: 25px;
+            /* 卡片的可爱弧度 */
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(138, 103, 249, 0.15);
+            transition: transform 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-10px);
+            /* 电脑上鼠标放上去会稍微往上浮 */
+        }
+
+        .food-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            /* 保证照片是正方形 */
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 10px;
+        }
+
+        .food-card h3 {
+            color: var(--color-purple);
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        /*deekseep*/
+        #favorite-stars {
+            background-color: #FFFFFF;
+            padding: 60px 0 70px;
+            /* 左右padding由内部容器控制，避免裁剪 */
+            font-family: 'Nunito', 'ZCOOL KuaiLe', sans-serif;
+            position: relative;
+            overflow: visible;
+            /* 关键：允许阴影溢出 */
+            z-index: 1;
+        }
+
+        #favorite-stars .section-title {
+            text-align: center;
+            color: #8A67F9;
+            font-size: 3em;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        #favorite-stars .section-title::after {
+            content: '';
+            display: block;
+            width: 120%;
+            height: 5px;
+            background-color: #BBFF16;
+            border-radius: 10px;
+            margin: 8px auto 0;
+            position: relative;
+            left: -10%;
+        }
+
+        .star-carousel-wrapper {
+            position: relative;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            gap: 15px;
+            /* 两侧留出空间，避免按钮压住阴影 */
+        }
+
+        .carousel-btn {
+            background: #8A67F9;
+            border: 3px solid #BBFF16;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 42px;
+            font-weight: bold;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #5e3eb8, 0 6px 12px rgba(138, 103, 249, 0.3);
+            transition: all 0.15s ease;
+            user-select: none;
+            z-index: 10;
+            flex-shrink: 0;
+            position: relative;
+            /* 确保按钮在阴影上方 */
+            margin: 0 5px;
+        }
+
+        .carousel-btn:hover {
+            background: #BBFF16;
+            color: #333;
+            border-color: #8A67F9;
+            box-shadow: 0 5px 0 #9ecf0e, 0 8px 16px rgba(187, 255, 22, 0.4);
+            transform: translateY(2px);
+        }
+
+        .carousel-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #5e3eb8, 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 舞台容器 — 增加内边距给阴影呼吸空间 */
+        .star-carousel {
+            display: flex;
+            gap: 28px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 25px 10px 45px;
+            /* 上、左右、下 充足空间显示阴影 */
+            margin: 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            perspective: 1200px;
+            /* 关键：让滚动时第一个卡片不贴边 */
+            scroll-padding-left: 10px;
+            scroll-padding-right: 10px;
+        }
+
+        .star-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 卡片 — 完整阴影 + 弧度旋转 */
+        .star-card {
+            flex: 0 0 260px;
+            scroll-snap-align: start;
+            background: #FFFFFF;
+            border-radius: 35px;
+            padding: 18px 18px 22px;
+            box-shadow: 0 20px 30px -8px rgba(138, 103, 249, 0.2),
+                0 8px 0 #e0d5ff,
+                0 0 0 4px #BBFF16;
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            text-align: center;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg) rotate(0deg);
+            will-change: transform;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            margin: 0;
+            /* 由gap控制间距，避免额外偏移 */
+        }
+
+        /* 弧度错落 */
+        .star-card:nth-child(odd) {
+            transform: rotateY(2.8deg) rotate(1.2deg);
+        }
+
+        .star-card:nth-child(even) {
+            transform: rotateY(-2.5deg) rotate(-0.8deg);
+        }
+
+        .star-card:hover {
+            transform: rotateY(0deg) rotate(0deg) scale(1.02);
+            box-shadow: 10px 28px 25px -15px #8A67F9, 0 8px 0 #b8a4ff, 0 0 0 5px #BBFF16;
+            z-index: 5;
+        }
+
+        .star-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 25px;
+            border: 4px solid white;
+            box-shadow: 0 6px 0 #c1b2f0, 0 10px 18px rgba(0, 0, 0, 0.1);
+            margin-bottom: 18px;
+            transition: transform 0.2s;
+            background-color: #f5f0ff;
+        }
+
+        .star-name {
+            font-size: 1.7em;
+            font-weight: 700;
+            color: #8A67F9;
+            text-shadow: 3px 3px 0 #BBFF16;
+            letter-spacing: 2px;
+            margin: 5px 0 0;
+            word-break: keep-all;
+            font-family: 'ZCOOL KuaiLe', 'Nunito', sans-serif;
+        }
+
+        .star-sub {
+            font-size: 0.9em;
+            color: #a58ee5;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 700px) {
+            .star-card {
+                flex: 0 0 220px;
+                padding: 14px 14px 18px;
+            }
+
+            .star-name {
+                font-size: 1.4em;
+            }
+
+            .carousel-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 38px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .star-card {
+                flex: 0 0 190px;
+            }
+
+            #favorite-stars .section-title {
+                font-size: 2.4em;
+                white-space: normal;
+            }
+        }
+
+        /* 装饰小星星 */
+        .stars-bg-emoji {
+            position: absolute;
+            font-size: 2.2rem;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star-ig-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 14px;
+            background-color: #f3eefe;
+            border-radius: 40px;
+            color: #8A67F9 !important;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95em;
+            border: 2px dashed #BBFF16;
+            transition: all 0.2s;
+            box-shadow: 0 3px 0 #d2c2ff;
+            word-break: break-all;
+        }
+
+        .star-ig-link:hover {
+            background-color: #BBFF16;
+            color: #333 !important;
+            border-color: #8A67F9;
+            box-shadow: 0 5px 0 #a3d913;
+            transform: translateY(-2px);
+        }
+
+        /* 妈妈卡片专用 — 外表普通，点击弹窗 */
+        .star-mom-pop {
+            display: inline-block;
+            margin-top: 10px;
+            color: #a58ee5;
+            /* 浅紫色，与副标题一致，低调 */
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            /* 鼠标变成小手，暗示可点击 */
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .star-mom-pop:hover {
+            color: #8A67F9;
+            /* 悬停时变深紫，给予反馈 */
+            text-decoration: underline dotted #BBFF16;
+            /* 荧光绿虚线下划线，可爱提示 */
+        }
+
 
         /* === 响应式设计 (Tablet & Mobile) === */
 
@@ -615,6 +958,8 @@
 
         /* 手机尺寸 (最大宽度 600px) */
         @media (max-width: 600px) {
+
+
 
             .card,
             #interests .card {
@@ -643,10 +988,11 @@
                 /* 缩小间距 */
             }
 
-            .mbti-text p  {
+            .mbti-text p {
                 font-size: 1.2em;
             }
-            .horoscope-text p{
+
+            .horoscope-text p {
                 font-size: 1.2em;
             }
 
@@ -860,6 +1206,139 @@
 
             </div>
         </section>
+
+        <section id="favorite-food">
+
+            <h2>🍚漂亮不能当饭吃🥤</h2>
+
+            <div class="slider-container">
+                <div class="slider-track">
+
+                    <div class="food-card">
+                        <img src="img/matcha.jpeg" alt="抹茶">
+                        <h3>抹茶蛋糕</h3>
+                    </div>
+
+                    <div class="food-card">
+                        <img src="img/bingsu.jpeg" alt="bingsu">
+                        <h3>Bingsu</h3>
+                    </div>
+
+                    <div class="food-card">
+                        <img src="img/dianxin.jpeg" alt="点心">
+                        <h3>点心</h3>
+                    </div>
+
+                    <div class="food-card">
+                        <img src="img/huoguo.jpeg" alt="火锅">
+                        <h3>火锅</h3>
+                    </div>
+
+                    <div class="food-card">
+                        <img src="img/kaorou.jpeg" alt="烤肉">
+                        <h3>烤肉</h3>
+                    </div>
+
+                    <div class="food-card">
+                        <img src="img/shaoyu.jpeg" alt="烧鱼">
+                        <h3>烧鱼</h3>
+                    </div>
+
+                    <div class="food-card">
+                        <img src="img/xigua.jpeg" alt="西瓜">
+                        <h3>西瓜</h3>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="favorite-stars">
+            <!-- 背景漂浮小星星 (纯装饰) -->
+            <span class="stars-bg-emoji" style="top: 80px; left: 5%;">✨</span>
+            <span class="stars-bg-emoji" style="bottom: 20px; right: 3%;">💫</span>
+            <span class="stars-bg-emoji" style="top: 45%; left: 2%;">⭐</span>
+            <span class="stars-bg-emoji" style="bottom: 15%; left: 8%;">🌟</span>
+            <span class="stars-bg-emoji" style="top: 80px; right: 5%;">✨</span>
+
+            <h2 class="section-title">💖 我的金主 💖</h2>
+
+            <div class="star-carousel-wrapper">
+                <!-- 左箭头 -->
+                <button class="carousel-btn left-btn" aria-label="向左滑动">‹</button>
+
+                <!-- 可滑动卡片容器 (自带触摸滑动 + 按钮控制) -->
+                <div class="star-carousel" id="starsCarousel">
+                    <!-- 卡片 1 -->
+                    <div class="star-card">
+                        <img src="img/dajie.jpeg" alt="大姐">
+                        <div class="star-name">大姐</div>
+                        <div class="star-sub">96老阿姨</div>
+                        <a href="https://www.instagram.com/chloe_o7/" target="_blank" class="star-ig-link">
+                            @chloe_o7
+                        </a>
+                    </div>
+                    <!-- 卡片 2 -->
+                    <div class="star-card">
+                        <img src="img/erjie.jpeg" alt="二姐">
+                        <div class="star-name">二姐</div>
+                        <div class="star-sub">97老阿姨</div>
+                        <a href="https://www.instagram.com/limying97/" target="_blank" class="star-ig-link">
+                            @limying97
+                        </a>
+                    </div>
+                    <!-- 卡片 3 -->
+                    <div class="star-card">
+                        <img src="img/sanjie.jpeg" alt="三姐">
+                        <div class="star-name">三姐</div>
+                        <div class="star-sub">98老阿姨</div>
+                        <a href="https://www.instagram.com/limting98/" target="_blank" class="star-ig-link">
+                            @limting98
+                        </a>
+                    </div>
+                    <!-- 卡片 4 -->
+                    <div class="star-card">
+                        <img src="img/sijie.jpeg" alt="四姐">
+                        <div class="star-name">四姐</div>
+                        <div class="star-sub">00老阿姨</div>
+                        <a href="https://www.instagram.com/cleolim_/" target="_blank" class="star-ig-link">
+                            @cleolim_
+
+                        </a>
+                    </div>
+                    <!-- 卡片 5 -->
+                    <div class="star-card">
+                        <img src="img/wujie.jpeg" alt="五姐">
+                        <div class="star-name">五姐</div>
+                        <div class="star-sub">02老阿姨 </div>
+                        <a href="https://www.instagram.com/lsc_0910/" target="_blank" class="star-ig-link">
+                            @lsc_0910
+                        </a>
+                    </div>
+
+                    <div class="star-card">
+                        <img src="img/mama.jpeg" alt="妈妈">
+                        <div class="star-name">妈妈</div>
+                        <div class="star-sub">74原始人 </div>
+                        <span class="star-mom-pop star-ig-link" onclick="alert('连我妈ig都要看？')">@yoke</span>
+                    </div>
+
+                    <div class="star-card">
+                        <img src="img/baba.jpeg" alt="爸爸">
+                        <div class="star-name">爸爸</div>
+                        <div class="star-sub">66原始人 </div>
+                        <span class="star-mom-pop star-ig-link" onclick="alert('连我爸ig都要看？')">@lim</span>
+                    </div>
+
+                </div>
+
+                <!-- 右箭头 -->
+                <button class="carousel-btn right-btn" aria-label="向右滑动">›</button>
+            </div>
+
+
+        </section>
+
         <!--
         <section id="hobbies">
             <h2>🎧 业余爱好</h2>
@@ -950,6 +1429,85 @@
             }, false);
         }
     </script>
+
+    <script>
+        (function () {
+            "use strict";
+            // 等待DOM完全加载
+            function initStarCarousel() {
+                const carousel = document.getElementById('starsCarousel');
+                const leftBtn = document.querySelector('#favorite-stars .left-btn');
+                const rightBtn = document.querySelector('#favorite-stars .right-btn');
+
+                if (!carousel || !leftBtn || !rightBtn) return;
+
+                // 获取卡片宽度 (包含gap, 使用第一个卡片的宽度+gap来滚动)
+                function getScrollAmount() {
+                    const firstCard = carousel.querySelector('.star-card');
+                    if (!firstCard) return 300; // fallback
+                    const cardStyle = window.getComputedStyle(firstCard);
+                    const cardWidth = firstCard.offsetWidth;
+                    // 获取gap值 (从父容器计算)
+                    const gap = parseFloat(window.getComputedStyle(carousel).gap) || 28;
+                    return cardWidth + gap;
+                }
+
+                // 平滑滚动至 左/右 一个卡片位
+                function scrollLeftOne() {
+                    const scrollAmount = getScrollAmount();
+                    carousel.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
+
+                function scrollRightOne() {
+                    const scrollAmount = getScrollAmount();
+                    carousel.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
+
+                // 绑定按钮事件
+                leftBtn.addEventListener('click', scrollLeftOne);
+                rightBtn.addEventListener('click', scrollRightOne);
+
+                // 可选：在窗口大小改变时不需要额外操作，scrollBy自适应宽度。
+                // 增加触摸/鼠标拖拽的用户体验，已经由overflow:auto原生支持，不需额外代码。
+
+                // 键盘左右键支持（小彩蛋）
+                const section = document.getElementById('favorite-stars');
+                if (section) {
+                    section.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowLeft') {
+                            e.preventDefault();
+                            scrollLeftOne();
+                        } else if (e.key === 'ArrowRight') {
+                            e.preventDefault();
+                            scrollRightOne();
+                        }
+                    });
+                    // 让section可聚焦但不显示轮廓（可选）
+                    section.setAttribute('tabindex', '-1');
+                    section.style.outline = 'none';
+                }
+
+                // 优雅处理图片加载失败 (已经内联onerror, 但保留)
+            }
+
+            // 如果DOM已加载则立即执行，否则等待
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initStarCarousel);
+            } else {
+                initStarCarousel();
+            }
+
+            // 额外：让滚动容器在触摸时更跟手 (无额外操作)
+        })();
+    </script>
+
+
 </body>
 
 </html>

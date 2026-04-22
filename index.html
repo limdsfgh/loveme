@@ -246,7 +246,7 @@
             text-align: center;
             color: var(--color-green);
             /*margin-bottom: 30px;*/
-            font-size: 2em;
+            font-size: 3.5em;
             position: relative;
             display: inline-block;
             left: 50%;
@@ -436,7 +436,7 @@
             text-align: center;
             color: var(--color-purple);
             /* 标题用紫色 */
-            font-size: 2.5em;
+            font-size: 3.5em;
             position: relative;
             display: block;
             /* 设为块级元素方便居中 */
@@ -462,6 +462,7 @@
         /* 覆盖掉全局 H2 的居中设定，让这里的标题靠左 */
         .mbti-text h2 {
             color: var(--color-purple);
+            font-size: 2.5em;
             text-align: left;
             left: 0;
             transform: none;
@@ -476,9 +477,117 @@
         }
 
         .mbti-text p {
-            font-size: 1.2em;
+            font-size: 1.5em;
             line-height: 1.8;
             font-weight: bold;
+        }
+
+        #horoscope {
+            background-color: var(--color-purple);
+            /* 紫色背景 */
+            padding: 60px 20px;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.2) 3px, transparent 3px);
+            background-size: 35px 35px;
+            /* 数字越小，星星越密集 */
+        }
+
+        /* 1. 主标题 (紫色底配绿标题 + 白线) */
+        #horoscope>h2 {
+            text-align: center;
+            color: var(--color-green);
+            /* 标题用亮绿色 */
+            font-size: 3.5em;
+            position: relative;
+            display: block;
+            /* margin-bottom: 60px; /* 保持间距 */
+        }
+
+        /* 绿标题下的白线 */
+        #horoscope>h2::after {
+            content: '';
+            display: block;
+            width: 80%;
+            /* 线的长度 */
+            height: 5px;
+            /* 线的粗细 */
+            background-color: var(--color-white);
+            /* 🌟 紫底配白线，最清晰 */
+            border-radius: 10px;
+            margin: 10px auto 0;
+        }
+
+        /* 2. 容器 (Desktop) */
+        .horoscope-container {
+            display: flex;
+            align-items: center;
+            /* 垂直居中 */
+            justify-content: center;
+            gap: 50px;
+            /* 间距 */
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 🌟 核心魔法 (Desktop): 交换位置让文字在左，图片在右 🌟 */
+        /* 我们使用 CSS order 属性来实现 HTML 结构不变，排版反转 */
+        @media (min-width: 601px) {
+
+            /* 针对平板尺寸以上 */
+            .swap-layout .horoscope-image {
+                order: 2;
+                /* 图片排在后面 (右边) */
+            }
+
+            .swap-layout .horoscope-text {
+                order: 1;
+                /* 文字排在前面 (左边) */
+            }
+        }
+
+        .horoscope-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* 纯享版照片：没有框框、没有阴影 */
+        .horoscope-image img {
+            width: 100%;
+            max-width: 450px;
+            /* 限制一下图片最大尺寸 */
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        .horoscope-text {
+            flex: 1;
+        }
+
+        /* 覆盖掉全局 H2 的居中设定，让这里的标题靠左 */
+        .horoscope-text h2 {
+            color: var(--color-green);
+            /* 子标题亮绿色 */
+            text-align: left;
+            left: 0;
+            transform: none;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        /* 紫底绿字下的白线 */
+        .horoscope-text h2::after {
+            margin: 5px 0 0 0;
+            width: 80px;
+            background-color: var(--color-white);
+            /* 白线 */
+        }
+
+        .horoscope-text p {
+            font-size: 1.5em;
+            line-height: 1.8;
+            /* font-weight: bold;*/
+            color: var(--color-white);
+            /* 🌟 重点：紫色背景上要用白字 */
         }
 
         @keyframes float {
@@ -522,6 +631,10 @@
                 height: 120px;
             }
 
+            #interests h2 {
+                font-size: 2em;
+            }
+
             /* 加在 @media (max-width: 600px) 里面！ */
             .mbti-container {
                 flex-direction: column;
@@ -530,8 +643,22 @@
                 /* 缩小间距 */
             }
 
-            .mbti-text h2 {
+            .mbti-text p  {
+                font-size: 1.2em;
+            }
+            .horoscope-text p{
+                font-size: 1.2em;
+            }
+
+            #mbti>h2 #horoscope>h2 {
+
+                font-size: 2.5em;
+
+            }
+
+            .mbti-text .horoscope-text h2 {
                 text-align: center;
+                font-size: 2em;
                 /* 手机端标题居中 */
             }
 
@@ -549,6 +676,36 @@
                 width: 100%;
                 max-width: 250px;
 
+            }
+
+            .horoscope-container {
+                flex-direction: column;
+                /* 垂直排列：上图下文 */
+                gap: 20px;
+                /* 缩小间距 */
+            }
+
+            /* 🌟 重点：手机端不需要交换，取消 order 的影响 🌟 */
+            .horoscope-container .horoscope-image,
+            .horoscope-container .horoscope-text {
+                order: 0;
+            }
+
+            .horoscope-text h2 {
+                text-align: center;
+                /* 手机端标题居中 */
+            }
+
+            .mbti-text h2::after,
+            /* 顺便把上面 MBTI 的这个也居中一下，刚才那个代码有点小漏 */
+            .horoscope-text h2::after {
+                margin: 5px auto 0;
+                /* 装饰线也居中 */
+            }
+
+            .horoscope-text {
+                text-align: center;
+                /* 手机端文字居中 */
             }
         }
     </style>
@@ -676,6 +833,31 @@
                         “我都行” “别管我” “随便” “到时候再讲” “不得空” “关你屁事”
                     </p>
                 </div>
+            </div>
+        </section>
+
+        <section id="horoscope">
+            <h2>我的星座</h2>
+
+            <div class="horoscope-container swap-layout">
+
+                <div class="horoscope-image">
+                    <img src="img/tianxie.png" alt="我的星座象征">
+                </div>
+
+                <div class="horoscope-text">
+                    <h2>迷人天蝎🦂</h2>
+                    <p>
+                        一手遮天蝎座
+                        无法无天蝎座
+                        一步登天蝎座
+                        义薄云天蝎座
+                        胆大包天蝎座
+                        盘古开天蝎座
+                        恨海情天蝎座
+                    </p>
+                </div>
+
             </div>
         </section>
         <!--
